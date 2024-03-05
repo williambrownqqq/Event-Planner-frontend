@@ -1,0 +1,32 @@
+.team-detail-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .team-detail {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 70%;
+    max-width: 800px;
+    text-align: center;
+  }
+  
+  .team-img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .team-name {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .team-description {
+    font-size: 16px;
+  }

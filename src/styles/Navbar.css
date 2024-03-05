@@ -1,0 +1,27 @@
+.navbar {
+    list-style: none;
+    display: flex;
+    background-color: #c4e0f3;
+    padding: 20px;
+  }
+
+ul.navbar{
+    margin: 0;
+  }
+  
+  .navbar-item {
+    margin: 0 10px;
+  }
+  
+  .navbar-item a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    display: block;
+    font-size: 1.5em;
+    margin: 0;
+    font-weight: bold;
+  }
+  
+  .navbar-item a:hover {
+    text-decoration: underline;
+  }
