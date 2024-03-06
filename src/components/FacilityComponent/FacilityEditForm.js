@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import '../styles/TeamForm.css';
+import '../styles/FacilityForm.css';
 
-function TeamEditForm() {
-    const { teamId } = useParams();
+function FacilityEditForm() {
+    const { facilityId } = useParams();
     const [formData, setFormData] = useState({
-        teamName: '',
+        facilityName: '',
         photoURL: '',
         description: ''
     });
     const [errors, setErrors] = useState({
-    teamName: '',
+    facilityName: '',
     photoURL: '',
     description: ''
     });
@@ -27,25 +27,25 @@ function TeamEditForm() {
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:8085/teams/${teamId}`)
+    axios.get(`http://localhost:8080/facilities/${facilityId}`)
       .then(response => {
-        const teamData = response.data;
-        console.log(teamData);
-        setFormData(teamData);
+        const facilityData = response.data;
+        console.log(facilityData);
+        setFormData(facilityData);
       })
       .catch(error => {
-        console.error('Error fetching team data:', error);
+        console.error('Error fetching facility data:', error);
       });
 
-  }, [teamId]);
+  }, [facilityId]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
-    axios.put(`http://localhost:8085/teams/${teamId}/edit`, formData)
+    axios.put(`http://localhost:8080/facilities/${facilityId}/edit`, formData)
       .then(response => {
-        console.log('Team updated:', response.data);
-        navigate('/teams');
+        console.log('Facility updated:', response.data);
+        navigate('/facilities');
         setErrors({});
       })
       .catch(error => {
@@ -53,17 +53,17 @@ function TeamEditForm() {
           console.log('Validation errors:', error.response.data);
           setErrors(error.response.data);
         } else {
-          console.error('Failed to save team:', error);
+          console.error('Failed to save facility:', error);
         }
       });
   };
 
   return (
     <div className="team-form-container">
-      <h2>Edit {formData.teamName} Team</h2>
+      <h2>Edit {formData.facilityName} Facility</h2>
       <form className="team-form" onSubmit={handleSubmit}>
         <label>
-          Team Name:
+          Facility Name:
           <input type="text" name="teamName" value={formData.teamName} onChange={handleChange} />
           {errors.teamName && <div className="error">{errors.teamName}</div>}
         </label>
@@ -84,4 +84,4 @@ function TeamEditForm() {
   );
 }
 
-export default TeamEditForm;
+export default FacilityEditForm;

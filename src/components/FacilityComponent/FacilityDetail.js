@@ -1,72 +1,72 @@
-import '../styles/TeamDetails.css'; 
+import '../styles/FacilityDetails.css'; 
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 
-function TeamDetail() {
-  const { teamId } = useParams();
-  const [team, setTeam] = useState(null);
-  const [players, setPlayers] = useState([]);
+function FacilityDetail() {
+  const { facilityId } = useParams();
+  const [facility, setFacility] = useState(null);
+  const [events, setEvents] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
 
-    axios.get(`http://localhost:8085/teams/${teamId}`)
+    axios.get(`http://localhost:8080/facilities/${facilityId}`)
       .then(response => {
-        const teamData = response.data;
-        setTeam(teamData);  
-        console.log(teamData);
+        const facilityData = response.data;
+        setFacility(facilityData);  
+        console.log(facilityData);
       })
       .catch(error => {
-        console.error('Error fetching team detail:', error);
+        console.error('Error fetching facility detail:', error);
       });
-      axios.get(`http://localhost:8085/teams/${teamId}/players`)
+      axios.get(`http://localhost:8080/facilities/${facilityId}/events`)
       .then(response => {
-        const playerData = response.data;
-        setPlayers(playerData);
+        const eventData = response.data;
+        setEvents(eventData);
       })
       .catch(error => {
-        console.error('Error fetching players:', error);
+        console.error('Error fetching events:', error);
       });
-  }, [teamId]);
+  }, [facilityId]);
 
   
   const handleDelete = () => {
-    axios.delete(`http://localhost:8085/teams/${teamId}/delete`)
+    axios.delete(`http://localhost:8080/faciities/${facilityId}/delete`)
       .then(() => {
-        navigate(`/teams`);
+        navigate(`/facilities`);
       })
       .catch(error => {
-        console.error('Error deleting team:', error);
+        console.error('Error deleting facility:', error);
       });
   };
 
   const handleUpdate = () => {
-    axios.get(`http://localhost:8085/teams/${teamId}/edit`)
+    axios.get(`http://localhost:8080/facilities/${facilityId}/edit`)
       .then(() => {
-        navigate(`/teams/${teamId}/edit`);
+        navigate(`/facilities/${facilityId}/edit`);
       })
       .catch(error => {
-        console.error('Error editing team:', error);
+        console.error('Error editing facility:', error);
       });
   };
 
-  const goToPlayerDetail = (playerId) => {
-    navigate(`/players/${playerId}`);
+  const goToEventDetail = (eventId) => {
+    navigate(`/events/${eventId}`);
 
-    axios.get(`http://localhost:8085/players/${playerId}`)
+    axios.get(`http://localhost:8080/events/${eventId}`)
       .then(response => {
-        const detailedPlayerData = response.data;
-        console.log(detailedPlayerData);
+        const detailedEventData = response.data;
+        console.log(detailedEventData);
       })
       .catch(error => {
-        console.error('Error fetching detailed player data:', error);
+        console.error('Error fetching detailed event data:', error);
       });
   };
 
-  if (!team) {
-    return <div>Loading team detail...</div>;
+  if (!facility) {
+    return <div>Loading facility detail...</div>;
   }
 
   return (
@@ -87,12 +87,12 @@ function TeamDetail() {
           <div className="player-list-container">
             <h1 className="player-list-title">List of Players</h1>
               <div className="player-list">
-                {players.map(player => (
-                  <div key={player.id} onClick={() => goToPlayerDetail(player.id)} className="card">
-                    <img src={player.photoURL} alt="player" className="card-img-top" />
+                {events.map(event => (
+                  <div key={event.id} onClick={() => goToEventDetail(event.id)} className="card">
+                    <img src={event.photoURL} alt="event" className="card-img-top" />
                     <div className="card-content">
-                      <h3>{player.firstName}</h3>
-                      <p>{player.lastName}</p>
+                      <h3>{event.firstName}</h3>
+                      <p>{event.lastName}</p>
                     </div>
                   </div>
                 ))}
@@ -109,4 +109,4 @@ function TeamDetail() {
   );
 }
 
-export default TeamDetail;
+export default FacilityDetail;

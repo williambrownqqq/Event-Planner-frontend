@@ -1,16 +1,16 @@
 import React, { useState} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import '../styles/TeamForm.css';
+import '../styles/FacilityForm.css';
 
-function TeamForm() {
+function FacilityForm() {
   const [formData, setFormData] = useState({
-    teamName: '',
+    facilityName: '',
     photoURL: '',
     description: ''
   });
   const [errors, setErrors] = useState({
-    teamName: '',
+    facilityName: '',
     photoURL: '',
     description: ''
   });
@@ -27,10 +27,10 @@ function TeamForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
-    axios.post('http://localhost:8085/teams/new', formData)
+    axios.post('http://localhost:8080/facilities/new', formData)
       .then(response => {
-        console.log('Team created:', response.data);
-        navigate('/teams');
+        console.log('Facility created:', response.data);
+        navigate('/facilities');
         setErrors({});
       })
       .catch(error => {
@@ -38,17 +38,17 @@ function TeamForm() {
           console.log('Validation errors:', error.response.data);
           setErrors(error.response.data);
         } else {
-          console.error('Failed to save team:', error);
+          console.error('Failed to save facility:', error);
         }
       });
   };
 
   return (
     <div className="team-form-container">
-      <h2>Create New Team</h2>
+      <h2>Create New Facility</h2>
       <form className="team-form" onSubmit={handleSubmit}>
         <label>
-          Team Name:
+        Facility Name:
           <input type="text" name="teamName" value={formData.teamName} onChange={handleChange} />
           {errors.teamName && <div className="error">{errors.teamName}</div>}
         </label>
@@ -63,10 +63,10 @@ function TeamForm() {
           {errors.photoURL && <div className="error">{errors.photoURL}</div>}
         </label>
         
-        <button type="submit">Create Team</button>
+        <button type="submit">Create Facility</button>
       </form>
     </div>
   );
 }
 
-export default TeamForm;
+export default FacilityForm;
