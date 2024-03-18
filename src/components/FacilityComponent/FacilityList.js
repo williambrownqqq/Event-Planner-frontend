@@ -1,33 +1,39 @@
-import '../styles/FacilityList.css';
+import '../../styles/FacilityList.css';
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import FacilityDetail from './FacilityDetail';
+// import UserService from '../../services/user.service.js';
+// import authHeader from '../../services/auth-header.js';
+import FacilityService  from '../../services/facility.service.js';
 
 function FacilityList() {
-  // const [teams, setTeams] = useState([]);
+  // const [facilities, setFacilities] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchRespond, setSearchRespond] = useState([]);
   const navigate = useNavigate();
 
+
   // useEffect(() => {
-  //   axios.get('http://localhost:8085/teams')
+  //   FacilityService.getFacilityList()
   //     .then(response => {
-  //       const teamsData = response.data.teams;
-  //       setTeams(teamsData);
+  //       const facilityList = response.data.facilities;
+  //       console.log(response.data);
+  //       setFacilities(facilityList);
   //     })
   //     .catch(error => {
-  //       console.error('Error fetching data:', error);
+  //       console.error('Error fetching facility list:', error);
   //     });
   // }, []);
 
+
+
   useEffect(() => {
-    axios
-      .get(`http://localhost:8081/facilities/search?query=${searchQuery}`)
+    FacilityService.searchFacilities(searchQuery)
       .then((response) => {
         console.log(searchQuery);
         const searchRespond = response.data;
-        console.log(searchRespond);
+        // console.log(searchRespond);
         setSearchRespond(searchRespond);
       })
       .catch((error) => {
@@ -37,8 +43,7 @@ function FacilityList() {
 
   const goToFacilityDetail = (facilityId) => {
     navigate(`/facilities/${facilityId}`); 
-
-    axios.get(`http://localhost:8081/facilities/${facilityId}`)
+    FacilityService.getFacilityDetails(facilityId)
       .then(response => {
         const detailedFacilityData = response.data;
         console.log(detailedFacilityData);
@@ -70,15 +75,15 @@ function FacilityList() {
           <div key={facility.id} onClick={() => goToFacilityDetail(facility.id)} className="card">
             <img src={facility.photoURL} alt="facility" className="card-img-top" />
             <div className="card-content">
-              <h3>{facility.gangName}</h3>
-              <p>{facility.description}</p>
+              <h3>{facility.facilityTitle}</h3>
+              {/* <p>{facility.description}</p> */}
             </div>
           </div>
         ))}
       </div>
       
         <Routes>
-          <Route path="/facilities/:id" element={<FacilityDetail />} />
+           <Route path="/facilities/:id" element={<FacilityDetail />} />
         </Routes>
     </div>
   );

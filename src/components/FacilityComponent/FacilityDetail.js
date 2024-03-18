@@ -1,8 +1,7 @@
-import '../styles/FacilityDetails.css'; 
+import '../../styles/FacilityDetails.css'; 
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-
+import facilityService from '../../services/facility.service';
 
 function FacilityDetail() {
   const { facilityId } = useParams();
@@ -11,8 +10,7 @@ function FacilityDetail() {
   const navigate = useNavigate();
 
   useEffect(() => {
-
-    axios.get(`http://localhost:8080/facilities/${facilityId}`)
+    facilityService.getFacilityDetails(facilityId)
       .then(response => {
         const facilityData = response.data;
         setFacility(facilityData);  
@@ -21,7 +19,13 @@ function FacilityDetail() {
       .catch(error => {
         console.error('Error fetching facility detail:', error);
       });
-      axios.get(`http://localhost:8080/facilities/${facilityId}/events`)
+    
+  }, [facilityId]); // that's array of dependencies.  When you pass dependencies to this array, the effect will re-run whenever any of the dependencies change.
+  // In your case, [facilityId] is an array containing a single element, facilityId. 
+  // This means that the effect will re-run whenever the value of facilityId changes.
+  
+  useEffect(() => {
+    facilityService.getFacilityEvents(facilityId)
       .then(response => {
         const eventData = response.data;
         setEvents(eventData);
@@ -31,9 +35,8 @@ function FacilityDetail() {
       });
   }, [facilityId]);
 
-  
   const handleDelete = () => {
-    axios.delete(`http://localhost:8080/faciities/${facilityId}/delete`)
+    facilityService.deleteFacility(facilityId)
       .then(() => {
         navigate(`/facilities`);
       })
@@ -43,7 +46,7 @@ function FacilityDetail() {
   };
 
   const handleUpdate = () => {
-    axios.get(`http://localhost:8080/facilities/${facilityId}/edit`)
+    facilityService.updateFacility(facilityId, )
       .then(() => {
         navigate(`/facilities/${facilityId}/edit`);
       })
@@ -54,8 +57,7 @@ function FacilityDetail() {
 
   const goToEventDetail = (eventId) => {
     navigate(`/events/${eventId}`);
-
-    axios.get(`http://localhost:8080/events/${eventId}`)
+    facilityService.getFacilityDetails(eventId)
       .then(response => {
         const detailedEventData = response.data;
         console.log(detailedEventData);
@@ -71,21 +73,21 @@ function FacilityDetail() {
 
   return (
     <div className="team-detail-container">
-      <h2>{team.teamName} Detail Page</h2>
+      <h2>{facility.facilityTitle} Detail Page</h2>
       <div className="team-detail">
-        <div class="image">
-          <img src={team.photoURL} alt="Team" className="team-img" />
-          <div class="content">
-            <h1> {team.description} </h1>
-            <p className="team-description">{team.teamName}</p>
+        <div className="image">
+          <img src={facility.photoURL} alt="Team" className="team-img" />
+          <div className="content">
+            <h1> {facility.facilityTitle} </h1>
+            {/* <p className="team-description">{facility.description}</p> */}
           </div>
         </div>
 
-        <h3 className="team-name">{team.teamName}</h3>
+        <h3 className="team-name">{facility.teamName}</h3>
         <p className="team-description">
           <ul className="characteristics-list">
           <div className="player-list-container">
-            <h1 className="player-list-title">List of Players</h1>
+            <h1 className="player-list-title">List of Events</h1>
               <div className="player-list">
                 {events.map(event => (
                   <div key={event.id} onClick={() => goToEventDetail(event.id)} className="card">

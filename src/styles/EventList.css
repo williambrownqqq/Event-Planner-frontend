@@ -1,7 +1,7 @@
-.player-list-title{
+.event-list-title{
     text-align: center;
 }
-.player-list {
+.event-list {
     margin-left: 2%;
     margin-right: 2%;
     display: flex;
@@ -24,12 +24,12 @@
   .card-content {
     margin-top: 16px;
   }
-  .player-list li {
+  .event-list li {
     list-style-type: none;
   }
 
   @media (max-width: 768px) {
-    .player-list {
+    .event-list {
       display: flex;
       flex-direction: column;
       align-items: center;

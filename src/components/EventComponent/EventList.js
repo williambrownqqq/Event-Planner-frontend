@@ -1,51 +1,56 @@
-import '../styles/PlayerList.css';
+import '../../styles/EventList.css';
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import PlayerDetail from './PlayerDetail';
+import EventDetail from './EventDetail';
+import EventService from '../../services/event.service.js';
+// import authHeader from '../../services/auth-header.js';
 
-function PlayerList() {
-  // const [players, setPlayers] = useState([]);
+function EventList() {
+  //const [events, setEvents] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchRespond, setSearchRespond] = useState([]);
   const navigate = useNavigate();
-
+  
   // useEffect(() => {
-  //   axios.get('http://localhost:8085/players')
+  //   // Fetch the event list using the getEventList() function from UserService
+  //   EventService.getEventList()
   //     .then(response => {
-  //       const playerData = response.data.players;
-  //       setPlayers(playerData);
-  //       console.log(playerData)
+  //       const eventList = response.data.events;
+  //       // console.log(response.data);
+  //       // console.log(response.data.events);
+  //       // console.log(eventList);
+  //       setEvents(eventList);
   //     })
   //     .catch(error => {
-  //       console.error('Error fetching data:', error);
+  //       console.error('Error fetching event list:', error);
   //     });
-  // }, []);
+  // }, []); // Empty dependency array means this effect will run once on component mount
+
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8085/players/search?query=${searchQuery}`)
+    EventService.searchEvents(searchQuery)
       .then((response) => {
         console.log(searchQuery);
         const searchRespond = response.data;
         console.log(searchRespond);
+        // setEvents(searchRespond)
         setSearchRespond(searchRespond);
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
-  }, [searchQuery]);
+  }, [searchQuery]); // This effect will run whenever the searchQuery changes
   
-  const goToPlayerDetail = (playerId) => {
-    navigate(`/players/${playerId}`);
-
-    axios.get(`http://localhost:8085/players/${playerId}`)
+  const goToEventDetail = (eventId) => {
+    navigate(`/events/${eventId}`);
+    EventService.getEventsDetails(eventId)
       .then(response => {
-        const detailedPlayerData = response.data;
-        console.log(detailedPlayerData);
+        const detailedEventData = response.data;
+        console.log(detailedEventData);
       })
       .catch(error => {
-        console.error('Error fetching detailed player data:', error);
+        console.error('Error fetching detailed event data:', error);
       });
   };
 
@@ -54,37 +59,37 @@ function PlayerList() {
   };
 
   return (
-    <div className="player-list-container">
-      <h1 className="player-list-title">List of Players</h1>
+    <div className="event-list-container">
+      <h1 className="event-list-title">List of Events</h1>
 
       <div className="search-container">
         <input
           type="text"
-          placeholder="Search players by name..."
+          placeholder="Search events by name..."
           value={searchQuery}
           onChange={handleSearchInputChange}
         />
       </div>
 
-      <div className="player-list">
-        {searchRespond.map(player => (
-          <div key={player.id} onClick={() => goToPlayerDetail(player.id)} className="card">
-            <img src={player.photoURL} alt="player" className="card-img-top" />
+      <div className="event-list">
+        {searchRespond.map(event => (
+          <div key={event.id} onClick={() => goToEventDetail(event.id)} className="card">
+            <img src={event.photoURL} alt="event" className="card-img-top" />
             <div className="card-content">
-              <h3>{player.firstName} {player.lastName}</h3>
-              <p>{player.nicknames.map(nickname => nickname.nickname).join(', ')}</p>
+              <h3>{event.eventTitle}</h3>
+              {/* If you have additional properties or logic to handle, you can add them here */}
             </div>
           </div>
         ))}
       </div>
       
       <Routes>
-        <Route path="/players/:id" element={<PlayerDetail />} />
+        <Route path="/events/:id" element={<EventDetail />} />
       </Routes>
     </div>
   );
 }
 
-export default PlayerList;
+export default EventList;
 
 

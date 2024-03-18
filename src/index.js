@@ -15,11 +15,3 @@ root.render(
 );
 
 serviceWorker.unregister();
-
-// const cors = require('cors');
-// const corsOptions ={
-//     origin:'http://localhost:8080/api/auth/signup', 
-//     credentials:true,            //access-control-allow-credentials:true
-//     optionSuccessStatus:200
-// }
-// App.use(cors(corsOptions));

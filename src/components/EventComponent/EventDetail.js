@@ -1,83 +1,80 @@
-import '../styles/PlayerDetails.css'; 
+import '../../styles/EventDetails.css'; 
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import EventService from '../../services/event.service.js';
 
-
-function PlayerDetail() {
-  const { playerId } = useParams();
-  const [player, setPlayer] = useState(null);
+function EventDetail() {
+  const { eventId } = useParams();
+  const [event, setEvent] = useState(null);
+  // const [task, setTask] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://localhost:8085/players/${playerId}`)
+   EventService.getEventsDetails(eventId)
       .then(response => {
-        const playerData = response.data;
-        setPlayer(playerData);
+        const eventData = response.data;
+        setEvent(eventData)
         console.log(response.data)
-        console.log(playerData)
       })
       .catch(error => {
-        console.error('Error fetching player detail:', error);
+        console.error('Error fetching event detail:', error);
       });
-  }, [playerId]);
+  }, [eventId]);
 
   const handleDelete = () => {
-    axios.delete(`http://localhost:8085/players/${playerId}/delete`)
+    EventService.deleteEvent(eventId)
       .then(() => {
-        navigate('/players'); // Use navigate to redirect after deletion
+        navigate('/events');
       })
       .catch(error => {
-        console.error('Error deleting player:', error);
+        console.error('Error deleting event:', error);
       });
   };
 
-  if (!player) {
-    return <div>Loading player detail...</div>;
-  }
-
-  const handleUpdate = () => {
-    axios.get(`http://localhost:8085/players/${playerId}/edit`)
+ const handleUpdate = () => {
+    EventService.updateEventevent(eventId)
       .then(() => {
-        navigate(`/players/${playerId}/edit`);
+        navigate(`/events/${eventId}/edit`);
       })
       .catch(error => {
         console.error('Error editing player:', error);
       });
   };
 
-  const goToTeamDetail = (teamId) => {
-    navigate(`/teams/${teamId}`);
+  // const goToEventDetail = (eventId) => {
+  //   navigate(`/events/${eventId}`);
+  //   EventService.getEventDetails(eventId)
+  //     .then(response => {
+  //       const detailedEventData = response.data;
+  //       console.log(detailedEventData);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching detailed event data:', error);
+  //     });
+  // };
 
-    axios.get(`http://localhost:8085/teams/${teamId}`)
-      .then(response => {
-        const detailedTeamData = response.data;
-        console.log(detailedTeamData);
-      })
-      .catch(error => {
-        console.error('Error fetching detailed player data:', error);
-      });
-  };
-
+ if (!event) {
+    return <div>Loading event detail...</div>;
+  }
   return (
     <div className="player-detail-container">
-      <h2>{player.firstName} {player.lastName} Detail Page</h2>
+      <h2>{event.eventTitle} Detail Page</h2>
       <div className="player-detail">
-        <div class="image">
-          <img src={player.photoURL} alt="Player" className="player-img" />
-          <div class="content">
-            <h1> {player.firstName} {player.lastName} </h1>
-            <p> {player.playerPosition}</p>
+        <div className="image">
+          <img src={event.photoURL} alt="Player" className="player-img" />
+          <div className="content">
+            {/* <h1> {player.firstName} {player.lastName} </h1>
+            <p> {player.playerPosition}</p> */}
           </div>
         </div>
 
-        <h3 className="player-name">{player.firstName} {player.lastName}</h3>
+        {/* <h3 className="player-name">{player.firstName} {player.lastName}</h3>
         <p className="player-description">
           <ul className="characteristics-list">
           <li><strong>Nicknames:</strong> {player.nicknames.map(nickname => nickname.nickname).join(', ')}</li>
             <li>
               <strong>Team:   </strong>
-               <span className="team-link" onClick={() => goToTeamDetail(player.team.id)} >
+               <span className="team-link" onClick={() => goToTeamDetail(event.facilityDTO.id)} >
                {player.team.teamName} 
                </span>
             </li>
@@ -92,7 +89,7 @@ function PlayerDetail() {
             <li><strong>Citizenship:</strong> {player.citizenship}</li>
             <li><strong>Languages Spoken:</strong> {player.languages.map(language => language.language).join(', ')}</li>
           </ul>
-        </p>
+        </p> */}
         <div className="button-container">
           <button className="update-button" onClick={handleUpdate}>Update</button>
           <button className="delete-button" onClick={handleDelete}>Delete</button>
@@ -102,4 +99,4 @@ function PlayerDetail() {
   );
 }
 
-export default PlayerDetail;
+export default EventDetail;

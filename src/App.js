@@ -16,6 +16,11 @@ import BoardAdmin from "./components/board-admin.component";
 // import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
 
+import EventList from "./components/EventComponent/EventList";
+import FacilityList from "./components/FacilityComponent/FacilityList";
+import FacilityDetail from "./components/FacilityComponent/FacilityDetail";
+import EventDetail from "./components/EventComponent/EventDetail";
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -70,7 +75,7 @@ class App extends Component {
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
           <Link to={"/"} className="navbar-brand">
-            bezKoder
+            Event Planner
           </Link>
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
@@ -160,6 +165,12 @@ class App extends Component {
             <Route path="/user" element={<BoardUser />} />
             <Route path="/mod" element={<BoardModerator />} />
             <Route path="/admin" element={<BoardAdmin />} />
+
+            <Route path="/facilities/*" element={<FacilityList />} />
+            <Route path="/facilities/:facilityId" element={<FacilityDetail />} />
+            {/* <Route path="/facilities/:facilityId" component={FacilityDetail} /> */}
+            <Route path="/events/*" element={<EventList />} />
+            <Route path="/events/:eventId" element={<EventDetail />} />
           </Routes>
         </div>
 

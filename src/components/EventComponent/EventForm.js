@@ -1,9 +1,9 @@
 import React, { useState, useEffect  } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import '../styles/PlayerForm.css';
+import '../styles/EventForm.css';
 
-function PlayerForm() {
+function EventForm() {
     const [formData, setFormData] = useState({
       firstName: '',
       lastName: '',
@@ -30,7 +30,7 @@ function PlayerForm() {
       height: null,
       placeOfBirth: '',
     });
-    const [teams, setTeams] = useState([]);
+    const [facilities, setFacilities] = useState([]);
     const navigate = useNavigate();
 
     const [eyeColors, setEyeColors] = useState([]);
@@ -41,12 +41,12 @@ function PlayerForm() {
     const handleChange = (e) => {
       const { name, value } = e.target;
 
-      if (name === 'teamId') {
-        const selectedTeam = teams.find(team => team.id === parseInt(value));
+      if (name === 'facilityId') {
+        const selectedFacility = facilities.find(facility => facility.id === parseInt(value));
         setFormData({
           ...formData,
-          team: selectedTeam,
-          [name]: parseInt(value), // Update teamId separately
+          facility: selectedFacility,
+          [name]: parseInt(value), // Update facilityId separately
         });
       } else if (name === 'nicknames') {
         const nickNamesArray = value.split(',').map(nickname => nickname.trim());
@@ -279,4 +279,4 @@ function PlayerForm() {
       );
   }
   
-  export default PlayerForm;
+  export default EventForm;
