@@ -2,6 +2,7 @@ import '../../styles/FacilityDetails.css';
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import facilityService from '../../services/facility.service';
+import eventService from '../../services/event.service';
 
 function FacilityDetail() {
   const { facilityId } = useParams();
@@ -27,6 +28,7 @@ function FacilityDetail() {
   useEffect(() => {
     facilityService.getFacilityEvents(facilityId)
       .then(response => {
+        console.log("events ")
         const eventData = response.data;
         setEvents(eventData);
       })
@@ -57,7 +59,7 @@ function FacilityDetail() {
 
   const goToEventDetail = (eventId) => {
     navigate(`/events/${eventId}`);
-    facilityService.getFacilityDetails(eventId)
+    eventService.getEventsDetails(eventId)
       .then(response => {
         const detailedEventData = response.data;
         console.log(detailedEventData);
@@ -72,29 +74,30 @@ function FacilityDetail() {
   }
 
   return (
-    <div className="team-detail-container">
+    <div className="facility-detail-container">
       <h2>{facility.facilityTitle} Detail Page</h2>
-      <div className="team-detail">
+      <div className="facility-detail">
         <div className="image">
-          <img src={facility.photoURL} alt="Team" className="team-img" />
+          <img src={facility.photoURL} alt="Facility" className="facility-img" />
           <div className="content">
             <h1> {facility.facilityTitle} </h1>
             {/* <p className="team-description">{facility.description}</p> */}
           </div>
         </div>
 
-        <h3 className="team-name">{facility.teamName}</h3>
-        <p className="team-description">
+        {/* <h3 className="facility-name">{facility.facilityTitle}</h3> */}
+        <p className="facility-description">
           <ul className="characteristics-list">
-          <div className="player-list-container">
-            <h1 className="player-list-title">List of Events</h1>
-              <div className="player-list">
+          <div className="event-list-container">
+            <h1 className="event-list-title">List of Events</h1>
+              <div className="event-list">
                 {events.map(event => (
                   <div key={event.id} onClick={() => goToEventDetail(event.id)} className="card">
                     <img src={event.photoURL} alt="event" className="card-img-top" />
                     <div className="card-content">
-                      <h3>{event.firstName}</h3>
-                      <p>{event.lastName}</p>
+                      <h3>{event.eventTitle}</h3>
+                      <p>Urgency: {event.urgency}</p>
+                      <p>Date: {event.openEventDate}</p>
                     </div>
                   </div>
                 ))}

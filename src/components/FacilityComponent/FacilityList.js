@@ -58,8 +58,8 @@ function FacilityList() {
   };
 
   return (
-    <div className="team-list-container">
-      <h1 className="team-list-title">List of Facilities</h1>
+    <div className="facility-list-container">
+      <h1 className="facility-list-title">List of Facilities</h1>
 
       <div className="search-container">
         <input
@@ -70,7 +70,7 @@ function FacilityList() {
         />
       </div>
 
-      <div className="team-list">
+      <div className="facility-list">
         {searchRespond.map(facility => (
           <div key={facility.id} onClick={() => goToFacilityDetail(facility.id)} className="card">
             <img src={facility.photoURL} alt="facility" className="card-img-top" />
@@ -85,6 +85,8 @@ function FacilityList() {
         <Routes>
            <Route path="/facilities/:id" element={<FacilityDetail />} />
         </Routes>
+
+        
     </div>
   );
 }

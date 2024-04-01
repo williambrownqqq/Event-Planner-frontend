@@ -1,0 +1,11 @@
+.container_form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .input_container {
+    display: flex;
+    margin-top: 10px;
+    flex-direction: column;
+    gap: 10px;
+  }

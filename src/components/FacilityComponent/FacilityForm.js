@@ -1,19 +1,22 @@
 import React, { useState} from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import '../styles/FacilityForm.css';
+import '../../styles/FacilityForm.css';
+import facilityService from '../../services/facility.service';
 
 function FacilityForm() {
   const [formData, setFormData] = useState({
-    facilityName: '',
+    facilityTitle: '',
     photoURL: '',
-    description: ''
+    description: '',
+    events: []
   });
   const [errors, setErrors] = useState({
-    facilityName: '',
+    facilityTitle: '',
     photoURL: '',
-    description: ''
+    description: '',
+    events: []
   });
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -27,7 +30,7 @@ function FacilityForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
-    axios.post('http://localhost:8080/facilities/new', formData)
+    facilityService.submitFacilityForm(formData)
       .then(response => {
         console.log('Facility created:', response.data);
         navigate('/facilities');
@@ -48,21 +51,21 @@ function FacilityForm() {
       <h2>Create New Facility</h2>
       <form className="team-form" onSubmit={handleSubmit}>
         <label>
-        Facility Name:
-          <input type="text" name="teamName" value={formData.teamName} onChange={handleChange} />
-          {errors.teamName && <div className="error">{errors.teamName}</div>}
-        </label>
-        <label>
-          Description:
-          <input type="text" name="description" value={formData.description} onChange={handleChange} />
-          {errors.description && <div className="error">{errors.description}</div>}
+          Facility Title:
+          <input type="text" name="facilityTitle" value={formData.facilityTitle} onChange={handleChange} />
+          {errors.facilityTitle && <div className="error">{errors.facilityTitle}</div>}
         </label>
         <label>
           Photo URL:
           <input type="text" name="photoURL" value={formData.photoURL} onChange={handleChange} />
           {errors.photoURL && <div className="error">{errors.photoURL}</div>}
         </label>
-        
+        <label>
+          Description:
+          <input type="text" name="description" value={formData.description} onChange={handleChange} />
+          {errors.description && <div className="error">{errors.description}</div>}
+        </label>
+
         <button type="submit">Create Facility</button>
       </form>
     </div>

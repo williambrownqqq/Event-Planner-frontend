@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Routes, Route, Link } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 import AuthService from "./services/auth.service";
@@ -20,6 +20,10 @@ import EventList from "./components/EventComponent/EventList";
 import FacilityList from "./components/FacilityComponent/FacilityList";
 import FacilityDetail from "./components/FacilityComponent/FacilityDetail";
 import EventDetail from "./components/EventComponent/EventDetail";
+import EventForm from "./components/EventComponent/EventForm";
+import FacilityForm from "./components/FacilityComponent/FacilityForm";
+import EventEditForm from "./components/EventComponent/EventEditForm";
+import FacilityEditForm from "./components/FacilityComponent/FacilityEditForm";
 
 class App extends Component {
   constructor(props) {
@@ -45,6 +49,7 @@ class App extends Component {
         showAdminBoard: user.roles.includes("ROLE_ADMIN"),
         showEventBoard: user.roles.includes("ROLE_USER"),
         showFacilityBoard: user.roles.includes("ROLE_USER"),
+
       });
     }
     
@@ -166,11 +171,15 @@ class App extends Component {
             <Route path="/mod" element={<BoardModerator />} />
             <Route path="/admin" element={<BoardAdmin />} />
 
-            <Route path="/facilities/*" element={<FacilityList />} />
+            <Route path="/facilities/new" element={<FacilityForm />} />
+            <Route path="/facilities/:facilityId/edit" element={<FacilityEditForm />} />
             <Route path="/facilities/:facilityId" element={<FacilityDetail />} />
-            {/* <Route path="/facilities/:facilityId" component={FacilityDetail} /> */}
-            <Route path="/events/*" element={<EventList />} />
+            <Route path="/facilities/*" element={<FacilityList />} />
+
+            <Route path="/events/new" element={<EventForm />} />
             <Route path="/events/:eventId" element={<EventDetail />} />
+            <Route path="/events/:eventId/edit" element={<EventEditForm />} />
+            <Route path="/events" element={<EventList />} />        
           </Routes>
         </div>
 

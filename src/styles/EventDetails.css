@@ -1,11 +1,11 @@
-.player-detail-container {
+.event-detail-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
   }
   
-  .player-detail {
+  .event-detail {
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -16,18 +16,18 @@
     text-align: center;
   }
   
-  .player-img {
+  .event-img {
     max-width: 100%;
     border-radius: 8px;
     margin-bottom: 20px;
   }
   
-  .player-name {
+  .event-name {
     font-size: 24px;
     margin-bottom: 10px;
   }
   
-  .player-description {
+  .event-description {
     font-size: 16px;
   }
 
@@ -72,7 +72,7 @@
   margin-bottom: 8px; /* Add some spacing between list items */
 }
 
-.team-link {
+.facility-link {
   box-shadow: inset 0 0 0 0 #54b3d6;
   color: #54b3d6;
   margin: 0 -.25rem;
@@ -81,7 +81,7 @@
   font-size: 140%;
 }
 
-.team-link:hover {
+.facility-link:hover {
   box-shadow: inset 100px 0 0 0 #54b3d6;
   color: white;
 }
@@ -112,7 +112,7 @@ img{
 .content:hover{
   opacity: 1;
 }
-.content h1{
+.event-detail .content p{
   font-size: 45px;
   color: #ffe100;
   margin-bottom: 15px;

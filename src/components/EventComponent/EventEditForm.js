@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import '../styles/PlayerForm.css';
+import '../../styles/EventForm.css';
 
 function PlayerEditForm() {
   const { playerId } = useParams();

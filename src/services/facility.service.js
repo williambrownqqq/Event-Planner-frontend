@@ -29,9 +29,9 @@ class FacilityService {
     return axios.get(FACILITY_URL + `/search?query=${searchQuery}`, { headers: authHeader() });
   }
 
-//   getFacilityEvents(facilityID){
-//     return axios.get(FACILITY_URL + `/${facilityID}/events`, { headers: authHeader() });
-//   }
+  submitFacilityForm(facilityForm){
+    return axios.post(FACILITY_URL + `/new`, facilityForm, { headers: authHeader() });
+  }
 }
 
 export default new FacilityService();

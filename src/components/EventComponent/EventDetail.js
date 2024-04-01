@@ -2,7 +2,7 @@ import '../../styles/EventDetails.css';
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import EventService from '../../services/event.service.js';
-
+import facilityService from '../../services/facility.service.js';
 function EventDetail() {
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
@@ -13,8 +13,9 @@ function EventDetail() {
    EventService.getEventsDetails(eventId)
       .then(response => {
         const eventData = response.data;
-        setEvent(eventData)
-        console.log(response.data)
+        setEvent(eventData);
+        console.log("eventData");
+        console.log(eventData);
       })
       .catch(error => {
         console.error('Error fetching event detail:', error);
@@ -32,12 +33,12 @@ function EventDetail() {
   };
 
  const handleUpdate = () => {
-    EventService.updateEventevent(eventId)
+    EventService.updateEvent(eventId)
       .then(() => {
         navigate(`/events/${eventId}/edit`);
       })
       .catch(error => {
-        console.error('Error editing player:', error);
+        console.error('Error editing event:', error);
       });
   };
 
@@ -53,48 +54,62 @@ function EventDetail() {
   //     });
   // };
 
+  const goToFacilityDetail = (facilityId) => {
+    navigate(`/facilities/${facilityId}`); 
+    facilityService.getFacilityDetails(facilityId)
+      .then(response => {
+        const detailedFacilityData = response.data;
+        console.log(detailedFacilityData);
+      })
+      .catch(error => {
+        console.error('Error fetching detailed facility data:', error);
+      });
+  };
+
  if (!event) {
     return <div>Loading event detail...</div>;
   }
   return (
-    <div className="player-detail-container">
+    <div className="event-detail-container">
       <h2>{event.eventTitle} Detail Page</h2>
-      <div className="player-detail">
+      <div className="event-detail">
         <div className="image">
-          <img src={event.photoURL} alt="Player" className="player-img" />
+          <img src={event.photoURL} alt={event.eventTitle} className="event-img" />
           <div className="content">
-            {/* <h1> {player.firstName} {player.lastName} </h1>
-            <p> {player.playerPosition}</p> */}
+            <p>{event.eventTitle}</p>
           </div>
         </div>
-
-        {/* <h3 className="player-name">{player.firstName} {player.lastName}</h3>
-        <p className="player-description">
-          <ul className="characteristics-list">
-          <li><strong>Nicknames:</strong> {player.nicknames.map(nickname => nickname.nickname).join(', ')}</li>
-            <li>
-              <strong>Team:   </strong>
-               <span className="team-link" onClick={() => goToTeamDetail(event.facilityDTO.id)} >
-               {player.team.teamName} 
+          <p>Description: {event.eventDescription}</p>
+          <strong>Facility:   </strong>
+               <span className="facility-link" onClick={() => goToFacilityDetail(event.facilityDTO.id)} >
+               {event.facilityDTO.facilityTitle} 
                </span>
-            </li>
-            <li><strong>Player Position:</strong> {player.playerPosition}</li>
-            <li><strong>Player Status:</strong> {player.status}</li>
-            <li><strong>Height:</strong> {player.height} cm</li>
-            <li><strong>Weight:</strong> {player.weight} kg</li>
-            <li><strong>Eye Color:</strong> {player.eyeColor}</li>
-            <li><strong>Hair Color:</strong> {player.hairColor}</li>
-            <li><strong>Birth Date:</strong> {player.dateOfBirth}</li>
-            <li><strong>Place of Birth:</strong> {player.placeOfBirth}</li>
-            <li><strong>Citizenship:</strong> {player.citizenship}</li>
-            <li><strong>Languages Spoken:</strong> {player.languages.map(language => language.language).join(', ')}</li>
-          </ul>
-        </p> */}
+          <p>Location: {event.eventLocation}</p>
+          <p>Event Date: {event.eventDate}</p>
+          <p>Urgency: {event.urgency}</p>
+          <p>Event type: {event.eventType}</p>
+          <p>Action: {event.action}</p>
+          <p>Open Event date: {event.openEventDate}</p>
+          <p>Closed Event date: {event.closedEventDate}</p>
+
+        <div className="tasks-container">
+          <h3>Tasks</h3>
+            <ul>
+              {event.tasks.map(task => (
+              <li key={task.id}>
+                <h4>{task.taskTitle}</h4>
+                <p>{task.taskDescription}</p>
+                <p>Deadline: {task.deadline}</p>
+              </li>
+              ))}
+            </ul>
+      </div>
         <div className="button-container">
           <button className="update-button" onClick={handleUpdate}>Update</button>
           <button className="delete-button" onClick={handleDelete}>Delete</button>
         </div>
       </div>
+      
     </div>
   );
 }
