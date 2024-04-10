@@ -1,24 +1,6 @@
 import { useState } from "react";
 import '../../styles/addDynamicInputFields.css';
 export default function AddDynamicInputFields({ setTasks }) {
-//   const [tasks, setTasks] = useState([{ taskTitle: "", taskDescription: "" }]);
-
-//   const handleAddInput = () => {
-//     setTasks([...tasks, { taskTitle: "",  taskDescription: "" }]);
-//   };
-
-//   const handleChange = (event, index) => {
-//     let { name, value } = event.target;
-//     let onChangeValue = [...tasks];
-//     onChangeValue[index][name] = value;
-//     setTasks(onChangeValue);
-//   };
-
-//   const handleDeleteInput = (index) => {
-//     const newArray = [...tasks];
-//     newArray.splice(index, 1);
-//     setTasks(newArray);
-//   };
 
 const [inputs, setInputs] = useState([{id: 1, taskTitle: "", taskDescription: "" }]);
 

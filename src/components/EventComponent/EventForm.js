@@ -198,8 +198,8 @@ function EventForm() {
               </select>
             <label>
               Event Type:	&nbsp;
-              <select name="eventType" value={formData.teamId} onChange={handleChange}>
-                <option value="">Select a team</option>
+              <select name="eventType" value={formData.eventType} onChange={handleChange}>
+                <option value="">Select an event type</option>
                 {eventTypes.map(eventType => (
                   <option key={eventType.id} value={eventType.id}>
                     {eventType.toUpperCase()}

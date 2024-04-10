@@ -21,8 +21,13 @@ class FacilityService {
     return axios.put(FACILITY_URL + `/${facilityId}/edit`, facilityData, { headers: authHeader() });
   }
 
+  getFacilityUpdateData(facilityId){
+    return axios.get(FACILITY_URL + `/${facilityId}/edit`, { headers: authHeader() });
+  }
+
   deleteFacility(facilityId){
-    return axios.delete(FACILITY_URL + `/${facilityId}`, { headers: authHeader() });
+    console.log(facilityId);
+    return axios.delete(FACILITY_URL + `/${facilityId}/delete`, { headers: authHeader() });
   }
 
   searchFacilities(searchQuery){

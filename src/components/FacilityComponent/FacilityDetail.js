@@ -48,13 +48,15 @@ function FacilityDetail() {
   };
 
   const handleUpdate = () => {
-    facilityService.updateFacility(facilityId, )
-      .then(() => {
-        navigate(`/facilities/${facilityId}/edit`);
-      })
-      .catch(error => {
-        console.error('Error editing facility:', error);
-      });
+    navigate(`/facilities/${facilityId}/edit`);
+
+    // facilityService.getFacilityUpdateData(facilityId)
+    //   .then(() => {
+    //     navigate(`/facilities/${facilityId}/edit`);
+    //   })
+    //   .catch(error => {
+    //     console.error('Error editing facility:', error);
+    //   });
   };
 
   const goToEventDetail = (eventId) => {

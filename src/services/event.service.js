@@ -26,7 +26,7 @@ class EventService {
   }
 
   deleteEvent(eventId){
-    return axios.delete(EVENT_URL + `/${eventId}`, { headers: authHeader() });
+    return axios.delete(EVENT_URL + `/${eventId}/delete`, { headers: authHeader() });
   }
 
   searchEvents(searchQuery){

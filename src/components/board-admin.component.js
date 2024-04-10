@@ -30,7 +30,7 @@ function BoardAdmin() {
       </div>
       <div id="manage-facilities" onClick={goToAddFacilities} className="section">
         <div className="content">
-          <h1>Manage Facilitie</h1>
+          <h1>Manage Facilities</h1>
         </div>
         <div className="overlay"></div>
       </div>

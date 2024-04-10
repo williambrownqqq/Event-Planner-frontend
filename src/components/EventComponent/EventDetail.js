@@ -33,26 +33,15 @@ function EventDetail() {
   };
 
  const handleUpdate = () => {
-    EventService.updateEvent(eventId)
-      .then(() => {
-        navigate(`/events/${eventId}/edit`);
-      })
-      .catch(error => {
-        console.error('Error editing event:', error);
-      });
+  navigate(`/events/${eventId}/edit`);
+    // EventService.updateEvent(eventId)
+    //   .then(() => {
+    //     navigate(`/events/${eventId}/edit`);
+    //   })
+    //   .catch(error => {
+    //     console.error('Error editing event:', error);
+    //   });
   };
-
-  // const goToEventDetail = (eventId) => {
-  //   navigate(`/events/${eventId}`);
-  //   EventService.getEventDetails(eventId)
-  //     .then(response => {
-  //       const detailedEventData = response.data;
-  //       console.log(detailedEventData);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error fetching detailed event data:', error);
-  //     });
-  // };
 
   const goToFacilityDetail = (facilityId) => {
     navigate(`/facilities/${facilityId}`); 

@@ -16,8 +16,16 @@ class EventFormService {
     return axios.get(EVENT_URL + `/event-state`, { headers: authHeader() });
   }
 
+  getEventUpdateData(eventId){
+    return axios.get(EVENT_URL + `/${eventId}/edit`, { headers: authHeader() });
+  }
+
   submitEventForm(eventForm){
     return axios.post(EVENT_URL + `/new`, eventForm, { headers: authHeader() });
+  }
+
+  updateEvent(eventId, eventData){
+    return axios.put(EVENT_URL + `/${eventId}/edit`, eventData, { headers: authHeader() });
   }
 
 }
