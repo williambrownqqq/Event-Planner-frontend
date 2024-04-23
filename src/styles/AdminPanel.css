@@ -1,0 +1,81 @@
+.admin-panel {
+    padding: 20px;
+    /* Add flex properties to center the admin panel */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    height: 100vh;
+  }
+  .admin-panel h2 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Styles for the table */
+  #users {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  #users th,
+  #users td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  #users th {
+    background-color: #343a40;
+    color: #fff;
+  }
+  
+  #users tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  #users tr:hover {
+    background-color: #e9ecef;
+  }
+  
+  /* Styles for the buttons */
+  .admin-panel button {
+    padding: 5px 10px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .admin-panel button:hover {
+    opacity: 0.8;
+  }
+  
+  .promote-button {
+    background-color: #28a745; /* Green */
+    color: white;
+  }
+  
+  .demote-button {
+    background-color: #dc3545; /* Red */
+    color: white;
+  }
+  
+  /* Styles for the links */
+  #users td a {
+    text-decoration: none;
+    color: #007bff;
+  }
+  
+  #users td a:hover {
+    text-decoration: underline;
+  }

@@ -25,6 +25,8 @@ import FacilityForm from "./components/FacilityComponent/FacilityForm";
 import EventEditForm from "./components/EventComponent/EventEditForm";
 import FacilityEditForm from "./components/FacilityComponent/FacilityEditForm";
 
+import AdminPanel from "./components/AdminPanelComponent/AdminPanel";
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -179,7 +181,10 @@ class App extends Component {
             <Route path="/events/new" element={<EventForm />} />
             <Route path="/events/:eventId" element={<EventDetail />} />
             <Route path="/events/:eventId/edit" element={<EventEditForm />} />
-            <Route path="/events" element={<EventList />} />        
+            <Route path="/events" element={<EventList />} />   
+
+            <Route path="/users/manage" element={<AdminPanel />} />
+          
           </Routes>
         </div>
 
