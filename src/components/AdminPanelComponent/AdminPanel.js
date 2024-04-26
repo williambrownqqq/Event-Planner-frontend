@@ -114,7 +114,8 @@ function AdminPanel() {
           {users.map(user => (
             <tr key={user.id}>
               <td>
-                <a href={`/users/${user.id}`}>{user.username}</a>
+                {user.username}
+                {/* <a href={`/users/${user.id}`}>{user.username}</a> */}
               </td>
               <td>{user.email}</td>
               <td>{user.roles.map(role => role.name).join(', ')}</td>

@@ -3,11 +3,13 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import facilityService from '../../services/facility.service';
 import eventService from '../../services/event.service';
+import AuthService from "../../services/auth.service";
 
 function FacilityDetail() {
   const { facilityId } = useParams();
   const [facility, setFacility] = useState(null);
   const [events, setEvents] = useState([]);
+  const currentUser = AuthService.getCurrentUser();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -49,14 +51,6 @@ function FacilityDetail() {
 
   const handleUpdate = () => {
     navigate(`/facilities/${facilityId}/edit`);
-
-    // facilityService.getFacilityUpdateData(facilityId)
-    //   .then(() => {
-    //     navigate(`/facilities/${facilityId}/edit`);
-    //   })
-    //   .catch(error => {
-    //     console.error('Error editing facility:', error);
-    //   });
   };
 
   const goToEventDetail = (eventId) => {
@@ -108,8 +102,12 @@ function FacilityDetail() {
           </ul>
         </p>
         <div className="button-container">
-          <button className="update-button" onClick={handleUpdate}>Update</button>
-          <button className="delete-button" onClick={handleDelete}>Delete</button>
+          {currentUser && (currentUser.roles.includes("ROLE_ADMIN") || currentUser.roles.includes("ROLE_MODERATOR")) && (
+            <>
+              <button className="update-button" onClick={handleUpdate}>Update</button>
+              <button className="delete-button" onClick={handleDelete}>Delete</button>
+            </>
+          )}
         </div>
       </div>
     </div>
