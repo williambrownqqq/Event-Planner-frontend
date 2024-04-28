@@ -2,7 +2,7 @@ import axios from 'axios';
 import authHeader from './auth-header';
 
 const EVENT_URL = 'http://localhost:8080/events';
-
+const MANAGEMENT_URL = 'http://localhost:8080/assign-event';
 class EventService {
 
   getEventList() {
@@ -30,7 +30,15 @@ class EventService {
   }
 
   searchEvents(searchQuery){
-    return axios.get(EVENT_URL  + `/search?query=${searchQuery}`, { headers: authHeader() })
+    return axios.get(EVENT_URL  + `/search?query=${searchQuery}`, { headers: authHeader() });
+  }
+
+  selfAssignExecutor(eventId, executorId) {
+    return axios.put(MANAGEMENT_URL + `/${eventId}/self-assign/${executorId}`, { headers: authHeader() });
+  }
+
+  selfUnassignExecutor(eventId, executorId) {
+    return axios.put(MANAGEMENT_URL + `/${eventId}/self-unassign/${executorId}`, { headers: authHeader() });
   }
 }
 

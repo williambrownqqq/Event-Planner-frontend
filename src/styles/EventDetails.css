@@ -37,7 +37,8 @@
 }
 
 .update-button,
-.delete-button {
+.delete-button,
+.assign-button {
   padding: 10px 20px;
   margin: 0 10px;
   border: none;
@@ -57,8 +58,14 @@
   color: white;
 }
 
+.assign-button {
+  background-color: #066d8d;
+  color: white;
+}
+
 .update-button:hover,
-.delete-button:hover {
+.delete-button:hover,
+.assign-button:hover {
   background-color: #0d8bf2;
 }
 

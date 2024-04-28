@@ -9,6 +9,7 @@ function EventDetail() {
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
   const currentUser = AuthService.getCurrentUser();
+  const [isAssigned, setIsAssigned] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,13 +17,70 @@ function EventDetail() {
       .then(response => {
         const eventData = response.data;
         setEvent(eventData);
-        console.log("eventData");
+
+        console.log("eventData:");
         console.log(eventData);
+
+        const isCurrentUserExecutor = eventData.executors.some(executor => executor.id === currentUser.id);
+        setIsAssigned(isCurrentUserExecutor);
+        
+        console.log("current user:");
+        console.log(currentUser);
+        console.log("event executor:");
+        console.log(eventData.executors.map(executor => (executor.username)));
+        console.log(eventData.executors.map(executor => (executor.id)));
       })
       .catch(error => {
         console.error('Error fetching event detail:', error);
       });
-  }, [eventId]);
+  }, [eventId]); 
+
+  const handleAssign = () => {
+    if (isAssigned) {
+      EventService.selfUnassignExecutor(event.id, currentUser.id)
+        .then(() => {
+          // Update the event state with the new executor information
+          setEvent(prevEvent => ({
+            ...prevEvent,
+            executor: null,
+          }));
+          // Set isAssigned to false
+          setIsAssigned(false);
+        })
+        .catch(error => {
+          console.error('Error unassigning executor:', error);
+        });
+      // Unassign the current user from the event
+      // Call the appropriate service method to unassign the user
+      // Update the event state with the new executor information
+      // Set isAssigned to false
+    } else {
+      // Assign the current user to the event
+      console.log(event.id);
+      console.log(currentUser.id);
+    EventService.selfAssignExecutor(event.id, currentUser.id)
+      .then(() => {
+        // Update the event state with the new executor information
+        setEvent(prevEvent => ({
+          ...prevEvent,
+          executor: {
+            id: currentUser.id,
+            username: currentUser.username,
+            // Add other necessary executor properties
+          },
+        }));
+        // Set isAssigned to true
+        setIsAssigned(true);
+      })
+      .catch(error => {
+        console.error('Error assigning executor:', error);
+      });
+      // Assign the current user to the event
+      // Call the appropriate service method to assign the user
+      // Update the event state with the new executor information
+      // Set isAssigned to true
+    }
+  };
 
   const handleDelete = () => {
     EventService.deleteEvent(eventId)
@@ -89,12 +147,16 @@ function EventDetail() {
             </ul>
       </div>
         <div className="button-container">
+          <button className="assign-button" onClick={handleAssign}>
+            {isAssigned ? "Unassign" : "Assign"}
+          </button>
         {currentUser && (currentUser.roles.includes("ROLE_ADMIN") || currentUser.roles.includes("ROLE_MODERATOR")) && (
             <>
               <button className="update-button" onClick={handleUpdate}>Update</button>
               <button className="delete-button" onClick={handleDelete}>Delete</button>
             </>
           )}
+
         </div>
       </div>
       
