@@ -130,12 +130,12 @@ function EventDetail() {
           <p>Event Date: {event.eventDate}</p>
           <p>Urgency: {event.urgency}</p>
           <p>Event type: {event.eventType}</p>
-          <p>Action: {event.action}</p>
+          <p>Event state: {event.eventState}</p>
           <p>Open Event date: {event.openEventDate}</p>
           <p>Closed Event date: {event.closedEventDate}</p>
 
         <div className="tasks-container">
-          <h3>Tasks</h3>
+          {event.tasks.length > 0 && <h3>Tasks</h3>}
             <ul>
               {event.tasks.map(task => (
               <li key={task.id}>
@@ -145,7 +145,7 @@ function EventDetail() {
               </li>
               ))}
             </ul>
-      </div>
+        </div>
         <div className="button-container">
           <button className="assign-button" onClick={handleAssign}>
             {isAssigned ? "Unassign" : "Assign"}

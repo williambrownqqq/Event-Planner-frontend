@@ -39,8 +39,15 @@ function FacilityForm() {
       .catch(error => {
         if (error.response && error.response.status === 400) {
           console.log('Validation errors:', error.response.data);
-          setErrors(error.response.data);
+          // Map the errors to the corresponding fields
+          const errors = {};
+          for (const key in error.response.data.errors) {
+            errors[key] = error.response.data.errors[key];
+          }
+          setErrors(errors);
         } else {
+          console.log("errors");
+          console.log(error.response);
           console.error('Failed to save facility:', error);
         }
       });
