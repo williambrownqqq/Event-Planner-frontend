@@ -4,6 +4,10 @@ import { useParams, useNavigate } from 'react-router-dom';
 import EventService from '../../services/event.service.js';
 import facilityService from '../../services/facility.service.js';
 import AuthService from "../../services/auth.service";
+import adminService from '../../services/admin.service.js';
+import UserDropdown from './UserDropdown.js';
+import eventService from '../../services/event.service.js';
+
 
 function EventDetail() {
   const { eventId } = useParams();
@@ -11,19 +15,24 @@ function EventDetail() {
   const currentUser = AuthService.getCurrentUser();
   const [isAssigned, setIsAssigned] = useState(false);
   const navigate = useNavigate();
+  const [users, setUsers] = useState([]);
+  const [executors, setExecutors] = useState({
+    executors: []
+  });
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
    EventService.getEventsDetails(eventId)
       .then(response => {
         const eventData = response.data;
         setEvent(eventData);
-
+        
         console.log("eventData:");
         console.log(eventData);
 
         const isCurrentUserExecutor = eventData.executors.some(executor => executor.id === currentUser.id);
         setIsAssigned(isCurrentUserExecutor);
-        
+        fetchUsers();
         console.log("current user:");
         console.log(currentUser);
         console.log("event executor:");
@@ -34,6 +43,35 @@ function EventDetail() {
         console.error('Error fetching event detail:', error);
       });
   }, [eventId]); 
+
+  const fetchUsers = () => {
+    adminService.getAllUsers() // Assuming you have a UserService with a getAllUsers method
+      .then(response => {
+        setUsers(response.data);
+        console.log("users")
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching users:', error);
+      });
+  };
+
+  const handleSelectionChange = (selectedUserIds) => {
+    console.error("selected users:  " + selectedUserIds);
+    setExecutors({ executors: selectedUserIds });
+    const executorsPayload = {
+      executors: selectedUserIds
+    };
+    // console.log("executors" + executorsPayload.executors);
+
+    eventService.adminExecutorsAssignment(eventId, executorsPayload)
+      .then(() => {
+        console.error('Update the event state with the new executors information');
+      })
+      .catch(error => {
+        console.error('Error assigning executors:', error);
+      });
+  };
 
   const handleAssign = () => {
     if (isAssigned) {
@@ -108,9 +146,13 @@ function EventDetail() {
       });
   };
 
+
+
  if (!event) {
     return <div>Loading event detail...</div>;
   }
+
+
   return (
     <div className="event-detail-container">
       <h2>{event.eventTitle} Detail Page</h2>
@@ -155,7 +197,17 @@ function EventDetail() {
               <button className="update-button" onClick={handleUpdate}>Update</button>
               <button className="delete-button" onClick={handleDelete}>Delete</button>
             </>
-          )}
+        )}
+        {currentUser && (currentUser.roles.includes("ROLE_ADMIN") || currentUser.roles.includes("ROLE_MODERATOR")) && (
+          <>
+            <button className="assign-executors-button" onClick={() => setIsModalOpen(true)}>
+              Assign Executors
+            </button>
+            {isModalOpen && (
+              <UserDropdown users={users} onSelectionChange={handleSelectionChange} />
+            )}
+          </>
+        )}
 
         </div>
       </div>

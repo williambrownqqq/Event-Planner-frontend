@@ -40,6 +40,10 @@ class EventService {
   selfUnassignExecutor(eventId, executorId) {
     return axios.put(MANAGEMENT_URL + `/${eventId}/self-unassign/${executorId}`, { headers: authHeader() });
   }
+
+  adminExecutorsAssignment(eventId, executors) {
+    return axios.put(MANAGEMENT_URL + `/${eventId}/assign`, executors, { headers: authHeader() });
+  }
 }
 
 export default new EventService();
