@@ -12,8 +12,6 @@ import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
 
 import BoardAdmin from "./components/board-admin.component";
-
-// import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
 
 import EventList from "./components/EventComponent/EventList";
@@ -24,9 +22,8 @@ import EventForm from "./components/EventComponent/EventForm";
 import FacilityForm from "./components/FacilityComponent/FacilityForm";
 import EventEditForm from "./components/EventComponent/EventEditForm";
 import FacilityEditForm from "./components/FacilityComponent/FacilityEditForm";
-// import Footer from "./components/Footer";
 import AdminPanel from "./components/AdminPanelComponent/AdminPanel";
-import "./styles/Footer.css"
+
 class App extends Component {
   constructor(props) {
     super(props);
