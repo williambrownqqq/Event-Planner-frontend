@@ -164,7 +164,8 @@ return (
       <div className="chart-container">
       <h3>Types of electricity generation facilities</h3>
         {chart2Data && <Doughnut data={chart2Data} />}
-       
+        <br></br>
+        <br></br>
       </div>
   </div>
        

@@ -10,7 +10,7 @@ import Register from "./components/register.component";
 import Home from "./components/home.component";
 import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
-import BoardModerator from "./components/board-moderator.component";
+
 import BoardAdmin from "./components/board-admin.component";
 
 // import AuthVerify from "./common/auth-verify";
@@ -24,9 +24,9 @@ import EventForm from "./components/EventComponent/EventForm";
 import FacilityForm from "./components/FacilityComponent/FacilityForm";
 import EventEditForm from "./components/EventComponent/EventEditForm";
 import FacilityEditForm from "./components/FacilityComponent/FacilityEditForm";
-
+// import Footer from "./components/Footer";
 import AdminPanel from "./components/AdminPanelComponent/AdminPanel";
-
+import "./styles/Footer.css"
 class App extends Component {
   constructor(props) {
     super(props);
@@ -163,7 +163,7 @@ class App extends Component {
           )}
         </nav>
 
-        <div className="container mt-3 ">
+        <div className="container mt-3 container-wide">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
@@ -188,8 +188,7 @@ class App extends Component {
           
           </Routes>
         </div>
-
-        {/* <AuthVerify logOut={this.logOut}/> */}
+         
       </div>
     );
   }
