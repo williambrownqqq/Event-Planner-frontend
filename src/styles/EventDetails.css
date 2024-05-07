@@ -140,3 +140,6 @@ img{
   transform: translateY(25px);
   transition: transform 0.6s;
 }
+.tasks-container ul {
+  list-style-type: none;
+}

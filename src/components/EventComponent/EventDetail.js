@@ -183,7 +183,7 @@ function EventDetail() {
               <li key={task.id}>
                 <h4>{task.taskTitle}</h4>
                 <p>{task.taskDescription}</p>
-                <p>Deadline: {task.deadline}</p>
+                {/* <p>Deadline: {task.deadline}</p> */}
               </li>
               ))}
             </ul>
