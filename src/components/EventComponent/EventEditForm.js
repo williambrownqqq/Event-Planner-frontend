@@ -6,6 +6,7 @@ import facilityService from '../../services/facility.service';
 import eventFormService from '../../services/event-form.service';
 
 import AddDynamicInputFieldsForEditForm  from './AddDynamicInputFieldsForEditForm';
+import AddDynamicInputFields from './AddDynamicInputFields';
 
 function EventEditForm() {
   const { eventId } = useParams();
@@ -241,9 +242,16 @@ function EventEditForm() {
               </select>
             </label> 
             
+            {/* <h2>Tasks</h2>
+            <AddDynamicInputFieldsForEditForm tasks={formData.tasks} setTasks={setTasks} /> */}
+
             <h2>Tasks</h2>
-            <AddDynamicInputFieldsForEditForm tasks={formData.tasks} setTasks={setTasks} />
-        
+            {formData.tasks && formData.tasks.length > 0 ? (
+              <AddDynamicInputFieldsForEditForm tasks={formData.tasks} setTasks={setTasks} />
+            ) : (
+              <AddDynamicInputFields setTasks={setTasks} />
+            )}
+
             <button type="submit">Update Event</button>
           </form>
         </div>

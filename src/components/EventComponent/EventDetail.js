@@ -173,8 +173,8 @@ function EventDetail() {
           <p>Urgency: {event.urgency}</p>
           <p>Event type: {event.eventType}</p>
           <p>Event state: {event.eventState}</p>
-          <p>Open Event date: {event.openEventDate}</p>
-          <p>Closed Event date: {event.closedEventDate}</p>
+          {/* <p>Open Event date: {event.openEventDate}</p>
+          <p>Closed Event date: {event.closedEventDate}</p> */}
 
         <div className="tasks-container">
           {event.tasks.length > 0 && <h3>Tasks</h3>}

@@ -47,7 +47,7 @@ const handleDeleteInput = (index) => {
           />
         
           {inputs.length > 1 && (
-            <button onClick={() => handleDeleteInput(index)}>Delete</button>
+            <button className="delete-extra-button" onClick={() => handleDeleteInput(index)}>Delete</button>
           )}
           {index === inputs.length - 1 && (
             <button onClick={() => handleAddInput()}>Add</button>

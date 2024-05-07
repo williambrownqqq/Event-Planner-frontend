@@ -1,0 +1,27 @@
+.grid {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    padding: 0.5em 0 0 0.5em;
+    max-width: 76em;
+    margin: 0 auto;
+  }
+  .grid li {
+    -webkit-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-width: 16em;
+    padding: 0 0.5em 0.5em 0;
+  }
+  .grid li > div {
+    /* background: #ffffff; */
+    padding: 7em 2em;
+    text-align: center;
+  }
+  .grid li a {
+    color: #fff;
+  
+  }
+  ul {
+    list-style-type: none;
+}

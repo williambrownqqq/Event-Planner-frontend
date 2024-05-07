@@ -76,7 +76,8 @@ class App extends Component {
   }
 
   render() {
-    const { currentUser, showModeratorBoard, showAdminBoard, showEventBoard, showFacilityBoard } = this.state;
+    //const { currentUser, showModeratorBoard, showAdminBoard, showEventBoard, showFacilityBoard } = this.state;
+    const { currentUser, showAdminBoard, showEventBoard, showFacilityBoard } = this.state;
 
     return (
       <div>
@@ -91,13 +92,13 @@ class App extends Component {
               </Link>
             </li>
 
-            {showModeratorBoard && (
+            {/* {showModeratorBoard && (
               <li className="nav-item">
                 <Link to={"/mod"} className="nav-link">
                   Moderator Board
                 </Link>
               </li>
-            )}
+            )} */}
 
             {showAdminBoard && (
               <li className="nav-item">
@@ -126,7 +127,7 @@ class App extends Component {
             {currentUser && (
               <li className="nav-item">
                 <Link to={"/user"} className="nav-link">
-                  User
+                  Monitoring
                 </Link>
               </li>
             )}
@@ -162,7 +163,7 @@ class App extends Component {
           )}
         </nav>
 
-        <div className="container mt-3">
+        <div className="container mt-3 ">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
@@ -170,7 +171,7 @@ class App extends Component {
             <Route path="/register" element={<Register />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/user" element={<BoardUser />} />
-            <Route path="/mod" element={<BoardModerator />} />
+            {/* <Route path="/mod" element={<BoardModerator />} /> */}
             <Route path="/admin" element={<BoardAdmin />} />
 
             <Route path="/facilities/new" element={<FacilityForm />} />
