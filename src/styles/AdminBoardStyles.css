@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+.bebas-neue-regular {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
 
 .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
   width: 100%;
@@ -30,7 +37,10 @@
 
 
 .container .content h1{
-  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  font-family: "Bebas Neue", sans-serif;
+  letter-spacing: .2rem;
+  font-size: 36px;
   color: #d7f4ff;
 }
 

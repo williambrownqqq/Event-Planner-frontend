@@ -125,9 +125,12 @@ img{
   opacity: 1;
 }
 .event-detail .content p{
-  font-size: 45px;
-  color: #ffe100;
-  margin-bottom: 15px;
+  text-align: center;
+  font-family: "Bebas Neue", sans-serif;
+  letter-spacing: .2rem;
+  font-size: 36px;
+  color: #d7f4ff;
+  /* margin-bottom: 15px; */
 }
 .content p{
   font-size: 19px;

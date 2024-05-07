@@ -1,11 +1,21 @@
-/* .facility-list-container{
-  width: fit-content;
+/* @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+.bebas-neue-regular {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.facility-list-title{
+  text-align: center;
+  font-family: "Bebas Neue", sans-serif;
+  letter-spacing: .2rem;
+  font-size: 36px;
 } */
 
 .facility-list-title{
-    text-align: center;
-}
-
+  text-align: center;
+} 
 .facility-list {
     margin-left: 2%;
     margin-right: 2%;
